@@ -186,68 +186,12 @@ export default function App() {
     setAuditStats({ weakCount: weak, reusedCount: reused });
   }, [accounts, isLocked]);
 
-  // Init check and .env Auto-Unlock / Auto-Initialize integration
+  // Init check
   useEffect(() => {
     const salt = localStorage.getItem('sp_salt');
     const token = localStorage.getItem('sp_token');
     const hasDb = !!(salt && token);
     setHasMasterPassword(hasDb);
-
-    // Check if master password is provided in .env
-    const envMasterPassword = import.meta.env.VITE_MASTER_PASSWORD;
-
-    if (envMasterPassword && envMasterPassword.length >= 8) {
-      if (!hasDb) {
-        // Auto-initialize vault with .env password
-        const initEnvVault = async () => {
-          try {
-            const newSalt = generateSalt();
-            const key = await deriveKey(envMasterPassword, newSalt);
-            const tokenObj = await encryptData('securepass_verified', key);
-            
-            localStorage.setItem('sp_salt', newSalt);
-            localStorage.setItem('sp_token', JSON.stringify(tokenObj));
-            localStorage.setItem('sp_accounts', JSON.stringify([]));
-
-            setDerivedKey(key);
-            setAccounts([]);
-            setIsLocked(false);
-            setHasMasterPassword(true);
-            
-            // Decrypt empty logs
-            await loadAndDecryptLogs(key);
-            await addLogEntry('Inisialisasi vault otomatis menggunakan .env', key);
-            showToast('Vault otomatis diinisialisasi menggunakan .env', 'success');
-          } catch (err) {
-            console.error('Failed to auto-init vault with env password:', err);
-          }
-        };
-        initEnvVault();
-      } else {
-        // Auto-unlock vault with .env password
-        const unlockEnvVault = async () => {
-          try {
-            const tokenObj = JSON.parse(token);
-            const key = await deriveKey(envMasterPassword, salt);
-            const verified = await decryptData(tokenObj.ciphertext, tokenObj.iv, key);
-            
-            if (verified === 'securepass_verified') {
-              setDerivedKey(key);
-              setIsLocked(false);
-              await loadAndDecryptAccounts(key);
-              await loadAndDecryptLogs(key);
-              await addLogEntry('Vault dibuka otomatis menggunakan konfigurasi .env', key);
-              showToast('Vault otomatis dibuka menggunakan .env', 'success');
-            } else {
-              setAuthError('Kunci master di .env tidak cocok dengan database saat ini.');
-            }
-          } catch (err) {
-            setAuthError('Gagal mendekripsi database otomatis via .env.');
-          }
-        };
-        unlockEnvVault();
-      }
-    }
   }, []);
 
   // Toast helper
@@ -359,10 +303,8 @@ export default function App() {
     if (activityTimer.current) clearTimeout(activityTimer.current);
     
     activityTimer.current = setTimeout(() => {
-      if (!import.meta.env.VITE_MASTER_PASSWORD) {
-        handleLock();
-        showToast('Vault terkunci otomatis karena tidak aktif.', 'error');
-      }
+      handleLock();
+      showToast('Vault terkunci otomatis karena tidak aktif.', 'error');
     }, autoLockMinutes * 60 * 1000);
   };
 
