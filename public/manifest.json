@@ -1,0 +1,17 @@
+{
+  "name": "SecurePass Vault",
+  "short_name": "SecurePass",
+  "description": "Secure local-first password manager with zero-knowledge encryption.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070a13",
+  "theme_color": "#070a13",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
