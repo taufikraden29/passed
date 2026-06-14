@@ -790,7 +790,7 @@ export default function App() {
       <ToastContainer toasts={toasts} removeToast={removeToast} />
 
       {/* Header bar */}
-      <header className="relative z-10 w-full max-w-6xl mx-auto px-6 py-5 flex items-center justify-between border-b border-white/5 backdrop-blur-lg">
+      <header className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-5 flex flex-col sm:flex-row items-center gap-4 justify-between border-b border-white/5 backdrop-blur-lg">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-purple-500/25">
             <svg className="w-5.5 h-5.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -804,13 +804,13 @@ export default function App() {
         </div>
 
         {!isLocked && (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center sm:justify-end gap-2.5 w-full sm:w-auto">
             <button
               onClick={() => {
                 setSettingsTab('config');
                 setIsSettingsOpen(true);
               }}
-              className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white/5 border border-white/10 hover:bg-white/10 transition flex items-center gap-2 cursor-pointer font-sans"
+              className="flex-1 sm:flex-initial px-3 py-2 rounded-xl text-xs font-semibold bg-white/5 border border-white/10 hover:bg-white/10 transition flex items-center justify-center gap-2 cursor-pointer font-sans"
             >
               <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -820,7 +820,7 @@ export default function App() {
             </button>
             <button
               onClick={handleLock}
-              className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-300 transition flex items-center gap-2 cursor-pointer font-sans"
+              className="flex-1 sm:flex-initial px-3 py-2 rounded-xl text-xs font-semibold bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-300 transition flex items-center justify-center gap-2 cursor-pointer font-sans"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m0 0v2m0-2h2m-2 0H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -980,9 +980,9 @@ export default function App() {
             )}
 
             {/* Dashboard top section */}
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between">
               {/* Search input */}
-              <div className="relative w-full md:max-w-md">
+              <div className="relative w-full lg:max-w-md">
                 <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                   <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -998,12 +998,12 @@ export default function App() {
               </div>
 
               {/* Add account button, lock all toggle, and timeout config */}
-              <div className="w-full md:w-auto flex flex-wrap items-center justify-between md:justify-end gap-3.5">
+              <div className="w-full lg:w-auto flex flex-col sm:flex-row items-stretch sm:items-center justify-stretch sm:justify-end gap-3">
                 {/* Global show all passwords button */}
                 {accounts.length > 0 && (
                   <button
                     onClick={() => setShowAllPasswords(!showAllPasswords)}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-semibold border transition flex items-center gap-1.5 cursor-pointer ${
+                    className={`px-3.5 py-2.5 rounded-xl text-xs font-semibold border transition flex items-center justify-center gap-1.5 cursor-pointer w-full sm:w-auto ${
                       showAllPasswords 
                         ? 'bg-amber-500/10 border-amber-500/30 text-amber-300' 
                         : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'
@@ -1017,7 +1017,7 @@ export default function App() {
                   </button>
                 )}
 
-                <div className="flex items-center gap-2 text-xs text-slate-400 bg-white/5 border border-white/10 px-3 py-2 rounded-xl">
+                <div className="flex items-center justify-between sm:justify-start gap-2 text-xs text-slate-400 bg-white/5 border border-white/10 px-3.5 py-2.5 rounded-xl w-full sm:w-auto">
                   <span>Kunci otomatis:</span>
                   <select
                     value={autoLockMinutes}
@@ -1033,7 +1033,7 @@ export default function App() {
 
                 <button
                   onClick={openAddModal}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-sm font-bold text-white transition shadow-lg shadow-purple-500/10 flex items-center gap-2 cursor-pointer font-sans"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-sm font-bold text-white transition shadow-lg shadow-purple-500/10 flex items-center justify-center gap-2 cursor-pointer font-sans w-full sm:w-auto"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
