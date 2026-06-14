@@ -73,7 +73,6 @@ export default function App() {
   const [formBankName, setFormBankName] = useState('');
   const [formBankAccountNumber, setFormBankAccountNumber] = useState('');
   const [formBankAccountHolder, setFormBankAccountHolder] = useState('');
-  const [formBankPin, setFormBankPin] = useState('');
 
   // Password Generator Configuration
   const [genLength, setGenLength] = useState(16);
@@ -426,7 +425,7 @@ export default function App() {
       bankName: formBankName,
       bankAccountNumber: formBankAccountNumber,
       bankBankAccountHolder: formBankAccountHolder,
-      bankPin: formBankPin,
+      bankPin: '',
 
       // Kontak fields
       fullName: formFullName,
@@ -563,7 +562,6 @@ export default function App() {
     setFormBankName('');
     setFormBankAccountNumber('');
     setFormBankAccountHolder('');
-    setFormBankPin('');
     setIsAddEditOpen(true);
   };
 
@@ -591,7 +589,6 @@ export default function App() {
     setFormBankName(account.bankName || '');
     setFormBankAccountNumber(account.bankAccountNumber || '');
     setFormBankAccountHolder(account.bankBankAccountHolder || '');
-    setFormBankPin(account.bankPin || '');
 
     setIsAddEditOpen(true);
   };
@@ -1214,8 +1211,6 @@ export default function App() {
         setFormBankAccountNumber={setFormBankAccountNumber}
         formBankAccountHolder={formBankAccountHolder}
         setFormBankAccountHolder={setFormBankAccountHolder}
-        formBankPin={formBankPin}
-        setFormBankPin={setFormBankPin}
         formFullName={formFullName}
         setFormFullName={setFormFullName}
         formPhoneNumber={formPhoneNumber}
